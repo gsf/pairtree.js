@@ -11,14 +11,14 @@ var pairtree = common.pairtree;
 
 common.expected = 11;
 
-equal(pairtree.id('/ab/cd/'), 'abcd', 'basic 4-char path');
-equal(pairtree.id('/ab/cd/e/'), 'abcde', 'basic 5-char path');
+equal(pairtree.id('/ab/cd/'), 'abcd', 'basic 4-char ppath');
+equal(pairtree.id('/ab/cd/e/'), 'abcde', 'basic 5-char ppath');
 equal(pairtree.id('ab/cd/e'), 'abcde', 'missing terminal separators');
 equal(pairtree.id('/ab/cd/e/f/gh/'), 'abcde', 'shorty ends ppath');
 equal(pairtree.id('/x/ab/cd/'), 'abcd', 'shorty before ppath is skipped');
 equal(pairtree.id('///ab///cd///e///////'), 'abcde', 'lots of bunched separators');
 equal(pairtree.id('  //ab///cd///e///  '), 'abcde', 'whitespace in front and in back');
-equal(pairtree.id('pairtree_root/ab/cd/e/obj'), 'abcde', 'junk before and after path');
+equal(pairtree.id('pairtree_root/ab/cd/ef/obj/gh/i'), 'abcdef', 'junk before and after ppath');
 equal(pairtree.id('pairtree_root/ab/c/d/ef'), 'abc', 'junk after one-char component terminates ppath');
 equal(pairtree.id('pairtree_root/a=/c+/e,/obj'), 'a/c:e.', 'junk with weird chars');
 equal(pairtree.id('/home/jak/pairtree_root/ab/cd/e/data/obj'), 'abcde', 'bigger junk before and after path');

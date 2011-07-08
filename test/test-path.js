@@ -17,7 +17,7 @@ equal(pairtree.path('abcdefg'), '/ab/cd/ef/g/', 'basic 7-char case');
 equal(pairtree.path('abcde', '\\'), '\\ab\\cd\\e\\', '5-char with \\ separator');
 equal(pairtree.path('xy'), '/xy/', '2-char edge case');
 equal(pairtree.path('z'), '/z/', '1-char edge case');
-equal(pairtree.path(''), '//', '0-char edge case');
+equal(pairtree.path(''), '/', '0-char edge case');
 equal(pairtree.path('abcdefg', ''), '/ab/cd/ef/g/', '7-char, empty separator case');
 equal(pairtree.path('12-986xy4'), '/12/-9/86/xy/4/', 'hyphen');
 equal(pairtree.path('13030_45xqv_793842495'), '/13/03/0_/45/xq/v_/79/38/42/49/5/', 'long id with undescores');

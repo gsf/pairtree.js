@@ -9,7 +9,7 @@ var common = require('./common');
 var equal = common.assert.equal;
 var pairtree = common.pairtree;
 
-common.expected = 11;
+common.expected = 12;
 
 equal(pairtree.id('/ab/cd/'), 'abcd', 'basic 4-char ppath');
 equal(pairtree.id('/ab/cd/e/'), 'abcde', 'basic 5-char ppath');
@@ -22,5 +22,7 @@ equal(pairtree.id('pairtree_root/ab/cd/ef/obj/gh/i'), 'abcdef', 'junk before and
 equal(pairtree.id('pairtree_root/ab/c/d/ef'), 'abc', 'junk after one-char component terminates ppath');
 equal(pairtree.id('pairtree_root/a=/c+/e,/obj'), 'a/c:e.', 'junk with weird chars');
 equal(pairtree.id('/home/jak/pairtree_root/ab/cd/e/data/obj'), 'abcde', 'bigger junk before and after path');
-// really? ugh. that seems contradictory. forget about this one for now
+equal(pairtree.id('pairtree_root/wh/at/-t/he/-^/2a/@^/3f/#!/^5/e!/^3/f/obj'), 'what-the-*@?#!^!?', 'junk with reverse of spec example');
+
+// really? ugh. this seems contradictory. forget about it for now.
 //equal(pairtree.id('/home/jak/pairtree_root/ab/cd/e/data/obj/pairtree_root/gh/ij'), 'ghij', 'ppath followed by a ppath picks last one');

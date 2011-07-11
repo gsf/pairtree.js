@@ -6,6 +6,46 @@
     <link rel="stylesheet" href="qunit.css">
     <script src="qunit.js"></script>
     <script src="../lib/pairtree.js"></script>
+    <script>
+      (function() {
+        test('id', function() {
+          expect(13);
+          equals(pairtree.id('/ab/cd/'), 'abcd', 'basic 4-char ppath');
+          equals(pairtree.id('/ab/cd/e/'), 'abcde', 'basic 5-char ppath');
+          equals(pairtree.id('ab/cd/e'), 'abcde', 'missing terminal separators');
+          equals(pairtree.id('/ab/cd/e/f/gh/'), 'abcde', 'shorty ends ppath');
+          equals(pairtree.id('/x/ab/cd/'), 'abcd', 'shorty before ppath is skipped');
+          equals(pairtree.id('///ab///cd///e///////'), 'abcde', 'lots of bunched separators');
+          equals(pairtree.id('  //ab///cd///e///  '), 'abcde', 'whitespace in front and in back');
+          equals(pairtree.id('pairtree_root/ab/cd/ef/obj/gh/i'), 'abcdef', 'junk before and after ppath');
+          equals(pairtree.id('pairtree_root/ab/c/d/ef'), 'abc', 'junk after one-char component terminates ppath');
+          equals(pairtree.id('pairtree_root/a=/c+/e,/obj'), 'a/c:e.', 'junk with weird chars');
+          equals(pairtree.id('/home/jak/pairtree_root/ab/cd/e/data/obj'), 'abcde', 'bigger junk before and after path');
+          equals(pairtree.id('pairtree_root/wh/at/-t/he/-^/2a/@^/3f/#!/^5/e!/^3/f/obj'), 'what-the-*@?#!^!?', 'junk with reverse of spec example');
+          equals(pairtree.id('/5^/e2/^8/2^/ac/^2/0^/d5/^b/d^/d5/^a/5^/d5/^b/6^/d5/^a/4^/d5/^b/e^/d5/^a/b^/d5/^b/9/'), '5€ սենդվիչ', 'UTF-8 chars (Armenian for "5-euro sandwich")');
+        });
+        test('path', function() {
+          expect(17);
+          equals(pairtree.path('abc'), '/ab/c/', 'basic 3-char case');
+          equals(pairtree.path('abcd'), '/ab/cd/', 'basic 4-char case');
+          equals(pairtree.path('abcdefg'), '/ab/cd/ef/g/', 'basic 7-char case');
+          equals(pairtree.path('abcde', '\\'), '\\ab\\cd\\e\\', '5-char with \\ separator');
+          equals(pairtree.path('xy'), '/xy/', '2-char edge case');
+          equals(pairtree.path('z'), '/z/', '1-char edge case');
+          equals(pairtree.path(''), '/', '0-char edge case');
+          equals(pairtree.path('abcdefg', ''), '/ab/cd/ef/g/', '7-char, empty separator case');
+          equals(pairtree.path('12-986xy4'), '/12/-9/86/xy/4/', 'hyphen');
+          equals(pairtree.path('13030_45xqv_793842495'), '/13/03/0_/45/xq/v_/79/38/42/49/5/', 'long id with undescores');
+          equals(pairtree.path('ark:/13030/xt12t3'), '/ar/k+/=1/30/30/=x/t1/2t/3/', 'colons and slashes');
+          equals(pairtree.path('/'), '/=/', '1-separator-char edge case');
+          equals(pairtree.path('http://n2t.info/urn:nbn:se:kb:repos-1'), '/ht/tp/+=/=n/2t/,i/nf/o=/ur/n+/nb/n+/se/+k/b+/re/po/s-/1/', 'a URL with colons, slashes, and periods');
+          equals(pairtree.path('what-the-*@?#!^!?'), '/wh/at/-t/he/-^/2a/@^/3f/#!/^5/e!/^3/f/', 'weird chars from spec example');
+          equals(pairtree.path('\\"*+,<=>?^|'), '/^5/c^/22/^2/a^/2b/^2/c^/3c/^3/d^/3e/^3/f^/5e/^7/c/', 'all weird visible chars');
+          equals(pairtree.path('Années de Pèlerinage'), '/An/n^/c3/^a/9e/s^/20/de/^2/0P/^c/3^/a8/le/ri/na/ge/', 'UTF-8 chars');
+          equals(pairtree.path('€ŽPZ'), '/^e/2^/82/^a/c^/c5/^b/dP/Z/', 'more crazy UTF-8 chars');
+        });
+      })();
+    </script>
   </head>
   <body>
     <h1 id="qunit-header">Pairtree.js Tests</h1>

@@ -1,0 +1,12 @@
+{ "name" : "pairtree"
+, "description" : "A Pairtree library"
+, "version" : "0.0.1"
+, "author" : "Gabriel Farrell <g@grrawr.com>"
+, "engines" : { "node": ">=0.4.0" }
+, "main" : "lib/pairtree"
+, "repository" :
+  { "type" : "git"
+  , "url" : "http://github.com/gsf/pairtree.js.git"
+  }
+, "scripts" : { "test" : "make test" }
+}

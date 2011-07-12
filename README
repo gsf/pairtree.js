@@ -1,7 +1,16 @@
-A Pairtree (https://wiki.ucop.edu/display/Curation/PairTree) JavaScript library
-that borrows heavily from https://github.com/edsu/ptree.
+Pairtree.js is a JavaScript library for Pairtree. See
+https://wiki.ucop.edu/display/Curation/PairTree 
 
-Usage:
+
+INSTALL
+
+In the browser, simply source the pairtree.js script found in lib/. 
+For node, execute the following:
+
+    $ npm install pairtree
+
+
+USAGE
 
     var path = pairtree.path('someId');
     var id = pairtree.id('/so/me/pa/ir/tr/ee/pa/th/');
